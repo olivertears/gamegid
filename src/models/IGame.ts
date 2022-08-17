@@ -2,7 +2,7 @@ import { IScreenshot } from './IScreenshot';
 import { IDetails } from './IDetails';
 
 export interface IGame {
-  id: string;
+  id: number;
   slug: string;
   name: string;
   released: string;

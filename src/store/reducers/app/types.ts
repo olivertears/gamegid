@@ -1,5 +1,65 @@
 export interface AppState {
-
+  loading: boolean;
+  page: number;
+  ordering: string;
+  search: string;
+  platforms: string[];
 }
 
-export type AppAction = {}
+export enum AppActionsEnum {
+  SET_LOADING = 'SET_LOADING',
+  SET_PAGE = 'SET_PAGE',
+  SET_ORDERING = 'SET_ORDERING',
+  SET_SEARCH = 'SET_SEARCH',
+  ADD_PLATFORM = 'ADD_PLATFORM',
+  REMOVE_PLATFORM = 'REMOVE_PLATFORM',
+  RESET_PLATFORMS = 'RESET_PLATFORMS',
+}
+
+export interface SetLoadingAction {
+  type: AppActionsEnum.SET_LOADING;
+  payload: boolean;
+}
+
+export interface SetPageAction {
+  type: AppActionsEnum.SET_PAGE;
+  payload: number;
+}
+
+export interface SetOrderingAction {
+  type: AppActionsEnum.SET_ORDERING;
+  payload: string;
+}
+
+export interface SetOrderingAction {
+  type: AppActionsEnum.SET_ORDERING;
+  payload: string;
+}
+
+export interface SetSearchAction {
+  type: AppActionsEnum.SET_SEARCH;
+  payload: string;
+}
+
+export interface AddPlatformAction {
+  type: AppActionsEnum.ADD_PLATFORM;
+  payload: string;
+}
+
+export interface RemovePlatformAction {
+  type: AppActionsEnum.REMOVE_PLATFORM;
+  payload: string;
+}
+
+export interface ResetPlatformsAction {
+  type: AppActionsEnum.RESET_PLATFORMS;
+}
+
+export type AppAction =
+  | SetLoadingAction
+  | SetPageAction
+  | SetOrderingAction
+  | SetSearchAction
+  | AddPlatformAction
+  | RemovePlatformAction
+  | ResetPlatformsAction;
