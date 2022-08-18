@@ -1,13 +1,17 @@
 import axios, { AxiosResponse } from 'axios';
-import { IGame } from '../models/IGame';
-import { IScreenshot } from '../models/IScreenshot';
-import { IDetails } from '../models/IDetails';
+import { GetGamesProps, IAxiosResponseGames, IAxiosResponseScreenshots } from './GameService.types';
+import { IDetails } from '../../models/IDetails';
 
 export default class GameService {
   static url = process.env.NEXT_PUBLIC_BASE_URL;
   static key = process.env.NEXT_PUBLIC_API_KEY;
 
-  static async getGames(page: number, ordering: string, search?: string, platforms?: string): Promise<AxiosResponse> {
+  static async getGames({
+    page,
+    ordering,
+    search,
+    platforms,
+  }: GetGamesProps): Promise<AxiosResponse<IAxiosResponseGames>> {
     return axios.get(`${this.url}`, {
       params: {
         key: this.key,
@@ -20,7 +24,7 @@ export default class GameService {
     });
   }
 
-  static async getGameDetails(gameId: number): Promise<AxiosResponse> {
+  static async getGameDetails(gameId: number): Promise<AxiosResponse<IDetails>> {
     return axios.get(`${this.url}/${gameId}`, {
       params: {
         key: this.key,
@@ -28,7 +32,7 @@ export default class GameService {
     });
   }
 
-  static async getGameScreenshots(gameId: number): Promise<AxiosResponse> {
+  static async getGameScreenshots(gameId: number): Promise<AxiosResponse<IAxiosResponseScreenshots>> {
     return axios.get(`${this.url}/${gameId}/screenshots`, {
       params: {
         key: this.key,

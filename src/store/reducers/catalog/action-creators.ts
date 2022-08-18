@@ -3,16 +3,10 @@ import {
   AppActionsEnum,
   RemovePlatformAction,
   ResetPlatformsAction,
-  SetLoadingAction,
   SetOrderingAction,
   SetPageAction,
   SetSearchAction,
 } from './types';
-
-export const setLoading = (loading: boolean): SetLoadingAction => ({
-  type: AppActionsEnum.SET_LOADING,
-  payload: loading,
-});
 
 export const setPage = (page: number): SetPageAction => ({
   type: AppActionsEnum.SET_PAGE,

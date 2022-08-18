@@ -1,11 +1,22 @@
-import { AddGamesAction, GameAction, GameActionsEnum, SetGamesAction, SetSelectedGameAction } from './types';
+import {
+  AddGamesAction,
+  GameAction,
+  GameActionsEnum,
+  SetGamesAction,
+  SetLoadingAction,
+  SetSelectedGameAction,
+} from './types';
 import { IFullGame, IGame } from '../../../models/IGame';
 import { Dispatch } from 'react';
-import { AppAction } from '../app/types';
-import { setLoading } from '../app/action-creators';
-import GameService from '../../../api/GameService';
+import { AppAction } from '../catalog/types';
+import GameService from '../../../api/GameService/GameService';
 import { IDetails } from '../../../models/IDetails';
 import { IScreenshot } from '../../../models/IScreenshot';
+
+export const setLoading = (loading: boolean): SetLoadingAction => ({
+  type: GameActionsEnum.SET_LOADING,
+  payload: loading,
+});
 
 export const setGames = (games: IGame[]): SetGamesAction => ({
   type: GameActionsEnum.SET_GAMES,
@@ -29,7 +40,7 @@ export const getGames =
   async (dispatch: Dispatch<GameAction | AppAction>) => {
     try {
       dispatch(setLoading(true));
-      const res = await GameService.getGames(page, ordering, search, platforms);
+      const res = await GameService.getGames({ page, ordering, search, platforms });
       dispatch(setGames(res.data.results as IGame[]));
     } catch (err: any) {
       console.log(err.message);
@@ -43,7 +54,7 @@ export const getLazyGames =
   async (dispatch: Dispatch<GameAction | AppAction>) => {
     try {
       dispatch(setLoading(true));
-      const res = await GameService.getGames(page, ordering, search, platforms);
+      const res = await GameService.getGames({ page, ordering, search, platforms });
       dispatch(addGames(res.data.results as IGame[]));
     } catch (err: any) {
       console.log(err.message);
@@ -55,8 +66,10 @@ export const getLazyGames =
 export const getFullGameInfo = (game: IGame) => async (dispatch: Dispatch<GameAction | AppAction>) => {
   try {
     dispatch(setLoading(true));
-    const details = await GameService.getGameDetails(game.id);
-    const screenshots = await GameService.getGameScreenshots(game.id);
+    const [details, screenshots] = await Promise.all([
+      GameService.getGameDetails(game.id),
+      GameService.getGameScreenshots(game.id),
+    ]);
     dispatch(
       setSelectedGame({
         ...game,
