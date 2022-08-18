@@ -1,10 +1,10 @@
 import { AnyAction, combineReducers } from 'redux';
-import app from './app';
+import catalog from './catalog';
 import game from './game';
 import { HYDRATE } from 'next-redux-wrapper';
 
 const rootReducer = combineReducers({
-  app,
+  catalog,
   game,
 });
 

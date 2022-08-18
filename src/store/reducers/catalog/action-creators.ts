@@ -2,7 +2,6 @@ import {
   AddPlatformAction,
   AppActionsEnum,
   RemovePlatformAction,
-  ResetPlatformsAction,
   SetLoadingAction,
   SetOrderingAction,
   SetPageAction,
@@ -37,8 +36,4 @@ export const addPlatform = (platform: string): AddPlatformAction => ({
 export const removePlatform = (platform: string): RemovePlatformAction => ({
   type: AppActionsEnum.REMOVE_PLATFORM,
   payload: platform,
-});
-
-export const resetPlatforms = (): ResetPlatformsAction => ({
-  type: AppActionsEnum.RESET_PLATFORMS,
 });

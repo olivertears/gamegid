@@ -1,8 +1,8 @@
 import { AddGamesAction, GameAction, GameActionsEnum, SetGamesAction, SetSelectedGameAction } from './types';
 import { IFullGame, IGame } from '../../../models/IGame';
 import { Dispatch } from 'react';
-import { AppAction } from '../app/types';
-import { setLoading } from '../app/action-creators';
+import { AppAction } from '../catalog/types';
+import { setLoading } from '../catalog/action-creators';
 import GameService from '../../../api/GameService';
 import { IDetails } from '../../../models/IDetails';
 import { IScreenshot } from '../../../models/IScreenshot';

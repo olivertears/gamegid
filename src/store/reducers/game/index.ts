@@ -8,13 +8,17 @@ const initialState: GameState = {
 
 export default function (state = initialState, action: GameAction): GameState {
   switch (action.type) {
-    case GameActionsEnum.SET_GAMES:
+    case GameActionsEnum.SET_GAMES: {
       return { ...state, games: [...action.payload] };
-    case GameActionsEnum.ADD_GAMES:
+    }
+    case GameActionsEnum.ADD_GAMES: {
       return { ...state, games: [...state.games, ...action.payload] };
-    case GameActionsEnum.SET_SELECTED_GAME:
+    }
+    case GameActionsEnum.SET_SELECTED_GAME: {
       return { ...state, selectedGame: action.payload };
-    default:
+    }
+    default: {
       return state;
+    }
   }
 }

@@ -15,7 +15,7 @@ export default class GameService {
         page: page,
         ordering: ordering,
         search: search,
-        platforms: platforms,
+        parent_platforms: platforms,
       },
     });
   }
