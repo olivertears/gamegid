@@ -1,11 +1,16 @@
-import {IScreenshot} from "./IScreenshot";
+import { IScreenshot } from './IScreenshot';
+import { IDetails } from './IDetails';
 
 export interface IGame {
-    slug: string,
-    name: string,
-    released: string,
-    background_image: string,
-    rating: number,
-    description: string,
-    screenshots: IScreenshot[]
+  id: string;
+  slug: string;
+  name: string;
+  released: string;
+  background_image: string;
+  rating: number;
+}
+
+export interface IFullGame extends IGame {
+  details: IDetails;
+  screenshots: IScreenshot[];
 }
