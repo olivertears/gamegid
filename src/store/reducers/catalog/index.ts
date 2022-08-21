@@ -1,31 +1,28 @@
-import { AppAction, AppActionsEnum, AppState } from './types';
+import { CatalogAction, CatalogActionsEnum, CatalogState } from './types';
+import { orderList } from '../../../consts';
 
-const initialState: AppState = {
-  loading: false,
+const initialState: CatalogState = {
   page: 1,
-  ordering: 'rating',
+  ordering: orderList[0],
   search: '',
   platforms: [] as string[],
 };
 
-export default function (state = initialState, action: AppAction): AppState {
+export default function (state = initialState, action: CatalogAction): CatalogState {
   switch (action.type) {
-    case AppActionsEnum.SET_LOADING: {
-      return { ...state, loading: action.payload };
-    }
-    case AppActionsEnum.SET_PAGE: {
+    case CatalogActionsEnum.SET_PAGE: {
       return { ...state, page: action.payload };
     }
-    case AppActionsEnum.SET_ORDERING: {
+    case CatalogActionsEnum.SET_ORDERING: {
       return { ...state, ordering: action.payload };
     }
-    case AppActionsEnum.SET_SEARCH: {
+    case CatalogActionsEnum.SET_SEARCH: {
       return { ...state, search: action.payload };
     }
-    case AppActionsEnum.ADD_PLATFORM: {
+    case CatalogActionsEnum.ADD_PLATFORM: {
       return { ...state, platforms: [...state.platforms, action.payload] };
     }
-    case AppActionsEnum.REMOVE_PLATFORM: {
+    case CatalogActionsEnum.REMOVE_PLATFORM: {
       return { ...state, platforms: state.platforms.filter((platform) => platform !== action.payload) };
     }
     default: {

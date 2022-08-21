@@ -18,10 +18,6 @@ export const inputSX = {
   width: '100%',
   height: '40px',
   padding: '0 40px',
-  fontSize: '24px',
-  color: 'white',
-  borderRadius: '10px',
-  backgroundColor: '#333',
 };
 
 export const closeIconSX = {

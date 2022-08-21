@@ -1,11 +1,13 @@
-export interface State {
+import { IOrdering } from '../../../models/IOrdering';
+
+export interface CatalogState {
   page: number;
-  ordering: string;
+  ordering: IOrdering;
   search: string;
   platforms: string[];
 }
 
-export enum AppActionsEnum {
+export enum CatalogActionsEnum {
   SET_PAGE = 'SET_PAGE',
   SET_ORDERING = 'SET_ORDERING',
   SET_SEARCH = 'SET_SEARCH',
@@ -14,33 +16,33 @@ export enum AppActionsEnum {
 }
 
 export interface SetPageAction {
-  type: AppActionsEnum.SET_PAGE;
+  type: CatalogActionsEnum.SET_PAGE;
   payload: number;
 }
 
 export interface SetOrderingAction {
-  type: AppActionsEnum.SET_ORDERING;
-  payload: string;
-}
-
-export interface SetOrderingAction {
-  type: AppActionsEnum.SET_ORDERING;
-  payload: string;
+  type: CatalogActionsEnum.SET_ORDERING;
+  payload: IOrdering;
 }
 
 export interface SetSearchAction {
-  type: AppActionsEnum.SET_SEARCH;
+  type: CatalogActionsEnum.SET_SEARCH;
   payload: string;
 }
 
 export interface AddPlatformAction {
-  type: AppActionsEnum.ADD_PLATFORM;
+  type: CatalogActionsEnum.ADD_PLATFORM;
   payload: string;
 }
 
 export interface RemovePlatformAction {
-  type: AppActionsEnum.REMOVE_PLATFORM;
+  type: CatalogActionsEnum.REMOVE_PLATFORM;
   payload: string;
 }
 
-export type AppAction = SetPageAction | SetOrderingAction | SetSearchAction | AddPlatformAction | RemovePlatformAction;
+export type CatalogAction =
+  | SetPageAction
+  | SetOrderingAction
+  | SetSearchAction
+  | AddPlatformAction
+  | RemovePlatformAction;

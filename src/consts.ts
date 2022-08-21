@@ -1,11 +1,8 @@
-export interface ISelector {
-  value: string;
-  name: string;
-}
+import { IOrdering } from './models/IOrdering';
 
-export const orderList: ISelector[] = [
-  { value: 'rating', name: 'Rating ↓' },
-  { value: '-rating', name: 'Rating ↑' },
+export const orderList: IOrdering[] = [
+  { value: '-rating', name: 'Rating ↓' },
+  { value: 'rating', name: 'Rating ↑' },
   { value: 'released', name: 'Released ↓' },
   { value: '-released', name: 'Released ↑' },
 ];

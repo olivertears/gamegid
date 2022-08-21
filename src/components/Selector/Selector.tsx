@@ -1,21 +1,30 @@
 import React, { FC, useState } from 'react';
 import { Select, MenuItem, InputLabel, FormControl, SelectChangeEvent } from '@mui/material';
-import { formControlSX, inputLabelSX, selectSX } from './Selector.styles';
-import { ISelector, orderList } from '../../consts';
+import { formControlSX, selectSX } from './Selector.styles';
+import { orderList } from '../../consts';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOrdering } from '../../store/reducers/catalog/action-creators';
+import { catalogOrderingSelector } from '../../store/reducers/catalog/selectors';
+import { findOrderingByName } from '../../utils/findOrderingByName';
 
 const Selector: FC = () => {
-  const [ordering, setOrdering] = useState<ISelector>(orderList[0]);
+  const ordering = useSelector(catalogOrderingSelector);
+  const [orderingName, setOrderingName] = useState<string>(ordering.name);
+  const dispatch = useDispatch();
 
   const handleChange = (event: SelectChangeEvent) => {
-    setOrdering(event.target.value as ISelector);
+    setOrderingName(event.target.value);
+    dispatch(setOrdering(findOrderingByName(orderingName)));
   };
 
   return (
     <FormControl sx={formControlSX}>
-      <InputLabel sx={inputLabelSX}>Ordering</InputLabel>
-      <Select value={ordering} label="Ordering" onChange={handleChange} sx={selectSX}>
+      <InputLabel>Ordering</InputLabel>
+      <Select value={orderingName} label="Ordering" onChange={handleChange} sx={selectSX}>
         {orderList.map((ordering) => (
-          <MenuItem value={ordering}>{ordering.name}</MenuItem>
+          <MenuItem value={ordering.name} key={ordering.name}>
+            {ordering.name}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>
