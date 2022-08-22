@@ -19,3 +19,7 @@ export const arrowSX = {
   marginTop: '20px',
   cursor: 'pointer',
 };
+
+export const descriptionSX = {
+  marginBottom: '30px',
+};

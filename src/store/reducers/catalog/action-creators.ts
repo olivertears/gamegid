@@ -1,11 +1,4 @@
-import {
-  AddPlatformAction,
-  CatalogActionsEnum,
-  RemovePlatformAction,
-  SetOrderingAction,
-  SetPageAction,
-  SetSearchAction,
-} from './types';
+import { CatalogActionsEnum, SetOrderingAction, SetPageAction, SetPlatformsAction, SetSearchAction } from './types';
 import { IOrdering } from '../../../models/IOrdering';
 
 export const setPage = (page: number): SetPageAction => ({
@@ -23,12 +16,7 @@ export const setSearch = (search: string): SetSearchAction => ({
   payload: search,
 });
 
-export const addPlatform = (platform: string): AddPlatformAction => ({
-  type: CatalogActionsEnum.ADD_PLATFORM,
-  payload: platform,
-});
-
-export const removePlatform = (platform: string): RemovePlatformAction => ({
-  type: CatalogActionsEnum.REMOVE_PLATFORM,
+export const setPlatforms = (platform: string[]): SetPlatformsAction => ({
+  type: CatalogActionsEnum.SET_PLATFORMS,
   payload: platform,
 });

@@ -3,12 +3,24 @@ import { Container, Input } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import { closeIconSX, inputSX, searchIconSX, containerSX } from './Search.styles';
+import { useDispatch } from 'react-redux';
+import { setSearch } from '../../store/reducers/catalog/action-creators';
 
 const Search: FC = () => {
-  const [search, setSearch] = useState<string>('');
+  const [query, setQuery] = useState<string>('');
+  const [timer, setTimer] = useState<null | string | number | Timeout | undefined>(null);
+  const dispatch = useDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+    setQuery(e.target.value);
+    if (timer) {
+      clearTimeout(timer);
+    }
+    setTimer(
+      setTimeout(() => {
+        dispatch(setSearch(e.target.value));
+      }, 500),
+    );
   };
 
   const clearInput = () => setSearch('');
@@ -16,8 +28,8 @@ const Search: FC = () => {
   return (
     <Container sx={containerSX}>
       <SearchIcon sx={searchIconSX} />
-      <Input value={search} onChange={handleChange} sx={inputSX} />
-      {search && <CloseIcon sx={closeIconSX} onClick={clearInput} />}
+      <Input value={query} onChange={handleChange} sx={inputSX} />
+      {query && <CloseIcon sx={closeIconSX} onClick={clearInput} />}
     </Container>
   );
 };

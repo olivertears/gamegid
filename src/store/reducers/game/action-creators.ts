@@ -37,11 +37,11 @@ export const setSelectedGame = (selectedGame: IFullGame): SetSelectedGameAction 
 // THUNK ACTIONS
 
 export const getGames =
-  ({ page, ordering, search, platforms }: GetGamesProps) =>
+  ({ ordering, search, platforms }: GetGamesProps) =>
   async (dispatch: Dispatch<GameAction | CatalogAction>) => {
     try {
       dispatch(setLoading(true));
-      const res = await GameService.getGames({ page, ordering, search, platforms });
+      const res = await GameService.getGames({ page: 1, ordering, search, platforms });
       dispatch(setGames(res.data.results as IGame[]));
     } catch (err: any) {
       console.log(err.message);

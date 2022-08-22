@@ -4,7 +4,7 @@ import { selectedGameSelector } from '../../store/reducers/game/selectors';
 import { Box, Container, Link, Rating, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import { arrowSX, boxSX, infoSX, Title } from './GameDetails.styles';
+import { arrowSX, boxSX, descriptionSX, infoSX, Title } from './GameDetails.styles';
 
 const GameDetails: FC = () => {
   const game = useSelector(selectedGameSelector);
@@ -50,7 +50,7 @@ const GameDetails: FC = () => {
           <ArrowDropDownIcon sx={arrowSX} onClick={handleOpenDescription} />
         )}
       </Box>
-      {descriptionOpen && <Box id="descriptionWrap" />}
+      {descriptionOpen && <Box id="descriptionWrap" sx={descriptionSX} />}
     </Container>
   );
 };

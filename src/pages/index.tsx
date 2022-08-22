@@ -8,20 +8,33 @@ import { getGames } from '../store/reducers/game/action-creators';
 import GamesWrap from '../components/GamesWrap/GamesWrap';
 import { ThemeProvider } from '@mui/material';
 import { theme } from '../theme';
+import { useSelector } from 'react-redux';
+import { loadingSelector } from '../store/reducers/game/selectors';
+import Loader from '../components/Loader/Loader';
+import {
+  catalogOrderingSelector,
+  catalogPlatformsSelector,
+  catalogSearchSelector,
+} from '../store/reducers/catalog/selectors';
+import { getPlatformsForRequest } from '../utils/getPlatformsForRequest';
 
 const Home: NextPage = () => {
+  const loading = useSelector(loadingSelector);
+  const ordering = useSelector(catalogOrderingSelector);
+  const platforms = useSelector(catalogPlatformsSelector);
+  const search = useSelector(catalogSearchSelector);
   const dispatch = useThunkDispatch();
 
   useEffect(() => {
-    dispatch(getGames({ page: 1, ordering: '-rating' }));
-  }, []);
+    dispatch(getGames({ ordering: ordering.value, search, platforms: getPlatformsForRequest(platforms) }));
+  }, [ordering, platforms, search]);
 
   return (
     <ThemeProvider theme={theme}>
       <Layout>
         <Search />
         <SelectorWrap />
-        <GamesWrap />
+        {loading ? <Loader /> : <GamesWrap />}
       </Layout>
     </ThemeProvider>
   );
