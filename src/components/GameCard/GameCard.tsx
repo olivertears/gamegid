@@ -19,12 +19,8 @@ const GameCard: FC<GameCardProps> = ({ game }) => {
     <Card onClick={redirect} sx={cardSX}>
       <CardMedia component="img" max-width="100%" image={background_image} />
       <Container sx={containerSX}>
-        <Typography fontSize={'24px'} fontWeight={'600'}>
-          {name}
-        </Typography>
-        <Typography fontSize={'20px'} fontWeight={'600'} margin={'10px 0'}>
-          {released}
-        </Typography>
+        <Typography variant="h5">{name}</Typography>
+        <Typography variant="body1">{released}</Typography>
         <Rating value={rating} readOnly />
       </Container>
     </Card>

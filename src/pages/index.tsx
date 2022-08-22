@@ -5,7 +5,7 @@ import SelectorWrap from '../components/SelectorWrap/SelectorWrap';
 import { useEffect } from 'react';
 import { useThunkDispatch } from '../hooks/useThunkDispatch';
 import { getGames } from '../store/reducers/game/action-creators';
-import GamesWrap from '../components/GamesWrap/GamesWrap';
+import GamesCatalog from '../components/GamesCatalog/GamesCatalog';
 import { ThemeProvider } from '@mui/material';
 import { theme } from '../theme';
 
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
       <Layout>
         <Search />
         <SelectorWrap />
-        <GamesWrap />
+        <GamesCatalog />
       </Layout>
     </ThemeProvider>
   );

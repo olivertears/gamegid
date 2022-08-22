@@ -1,4 +1,5 @@
 import { styled } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 export const Title = styled('h2')(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
@@ -15,7 +16,12 @@ export const boxSX = {
   display: 'flex',
 };
 
-export const arrowSX = {
-  marginTop: '20px',
-  cursor: 'pointer',
-};
+export const useArrowStyles = makeStyles({
+  arrow: {
+    cursor: 'pointer',
+    color: 'white',
+  },
+  rotatedArrow: {
+    transform: 'rotate(180deg)',
+  },
+});

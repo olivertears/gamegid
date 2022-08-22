@@ -23,7 +23,7 @@ export const inputSX = {
 export const closeIconSX = {
   position: 'absolute',
   margin: '5px',
-  right: '24px',
+  right: '0px',
   zIndex: '2',
   width: '30px',
   height: '30px',
