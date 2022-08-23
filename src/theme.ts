@@ -47,5 +47,15 @@ export const theme = createTheme({
         },
       },
     },
+
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          margin: '0',
+          padding: '0',
+          color: 'white',
+        },
+      },
+    },
   },
 });

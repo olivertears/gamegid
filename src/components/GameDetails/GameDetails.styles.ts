@@ -15,11 +15,12 @@ export const boxSX = {
   display: 'flex',
 };
 
-export const arrowSX = {
-  marginTop: '20px',
-  cursor: 'pointer',
+export const descriptionSX = {
+  marginBottom: '20px',
 };
 
-export const descriptionSX = {
-  marginBottom: '30px',
-};
+export const arrowSX = (open: boolean) => ({
+  cursor: 'pointer',
+  color: 'white',
+  transform: open && 'rotate(180deg)',
+});

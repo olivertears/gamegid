@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { gamesSelector } from '../../store/reducers/game/selectors';
 import GameCard from '../GameCard/GameCard';
-import { wrapSX, Wrap } from './GamesWrap.styles';
+import { wrapSX, Wrap } from './GamesCatalog.styles';
 
-const GamesWrap: FC = () => {
+const GamesCatalog: FC = () => {
   const games = useSelector(gamesSelector);
 
   return (
@@ -16,4 +16,4 @@ const GamesWrap: FC = () => {
   );
 };
 
-export default GamesWrap;
+export default GamesCatalog;

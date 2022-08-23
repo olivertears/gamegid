@@ -29,10 +29,13 @@ export const addGames = (games: IGame[]): AddGamesAction => ({
   payload: games,
 });
 
-export const setSelectedGame = (selectedGame: IFullGame): SetSelectedGameAction => ({
-  type: GameActionsEnum.SET_SELECTED_GAME,
-  payload: selectedGame,
-});
+export const setSelectedGame = (selectedGame: IFullGame): SetSelectedGameAction => {
+  localStorage.setItem('selectedGame', JSON.stringify(selectedGame));
+  return {
+    type: GameActionsEnum.SET_SELECTED_GAME,
+    payload: selectedGame,
+  };
+};
 
 // THUNK ACTIONS
 

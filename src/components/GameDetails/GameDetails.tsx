@@ -1,8 +1,7 @@
-import React, { FC, useLayoutEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectedGameSelector } from '../../store/reducers/game/selectors';
-import { Box, Container, Link, Rating, Typography } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { Box, Container, IconButton, Link, Rating, Typography } from '@mui/material';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { arrowSX, boxSX, descriptionSX, infoSX, Title } from './GameDetails.styles';
 
@@ -10,21 +9,16 @@ const GameDetails: FC = () => {
   const game = useSelector(selectedGameSelector);
   const [descriptionOpen, setDescriptionOpen] = useState<boolean>(true);
 
-  useLayoutEffect(() => {
-    const descriptionWrap = document.getElementById('descriptionWrap');
-    if (descriptionWrap) {
-      descriptionWrap.innerHTML = game.details.description;
-    }
-  }, [descriptionOpen]);
+  function createMarkup() {
+    return { __html: game.details?.description };
+  }
 
   const handleOpenDescription = () => setDescriptionOpen(!descriptionOpen);
 
   return (
     <Container>
-      <Typography fontSize="24px" fontWeight="600" marginBottom="15px">
-        {game.name}
-      </Typography>
-      <Rating value={game.rating} readOnly />
+      <Typography variant={'h4'}>{game.name}</Typography>
+      <Rating value={game.rating ? game.rating : 0} readOnly precision={0.5} />
 
       {game.released && (
         <>
@@ -33,7 +27,7 @@ const GameDetails: FC = () => {
         </>
       )}
 
-      {game.details.website && (
+      {game.details?.website && (
         <>
           <Title>Website: </Title>
           <Link href={game.details.website} target="_blank" sx={infoSX}>
@@ -44,13 +38,11 @@ const GameDetails: FC = () => {
 
       <Box sx={boxSX}>
         <Title>Description</Title>
-        {descriptionOpen ? (
-          <ArrowDropUpIcon sx={arrowSX} onClick={handleOpenDescription} />
-        ) : (
-          <ArrowDropDownIcon sx={arrowSX} onClick={handleOpenDescription} />
-        )}
+        <IconButton onClick={handleOpenDescription}>
+          <ArrowDropUpIcon sx={arrowSX(descriptionOpen)} />
+        </IconButton>
       </Box>
-      {descriptionOpen && <Box id="descriptionWrap" sx={descriptionSX} />}
+      {descriptionOpen && <Box dangerouslySetInnerHTML={createMarkup()} sx={descriptionSX} />}
     </Container>
   );
 };

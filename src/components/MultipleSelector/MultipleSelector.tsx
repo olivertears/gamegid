@@ -11,23 +11,29 @@ import {
 } from '@mui/material';
 import { platformList } from '../../consts';
 import { formControlSX, MenuProps, selectSX } from './MultipleSelector.styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setPlatforms } from '../../store/reducers/catalog/action-creators';
-import { getPlatformsForRequest } from '../../utils/getPlatformsForRequest';
+import { catalogPlatformsSelector } from '../../store/reducers/catalog/selectors';
 
 const MultipleSelector: FC = () => {
-  const [platformNames, setPlatformNames] = useState<string[]>([] as string[]);
+  const platforms = useSelector(catalogPlatformsSelector);
+  const [platformNames, setPlatformNames] = useState<string[]>(platforms);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setPlatforms(platformNames));
-  }, [platformNames]);
+    const platformsFromLS = localStorage.getItem('platforms');
+    if (platformsFromLS) {
+      dispatch(setPlatforms(JSON.parse(platformsFromLS)));
+      setPlatformNames(JSON.parse(platformsFromLS));
+    }
+  }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
     const {
       target: { value },
     } = event;
     setPlatformNames(typeof value === 'string' ? value.split(',') : value);
+    dispatch(setPlatforms(typeof value === 'string' ? value.split(',') : value));
   };
 
   return (
