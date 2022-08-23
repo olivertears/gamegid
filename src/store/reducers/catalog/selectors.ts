@@ -1,12 +1,10 @@
 import { RootState } from '../index';
-import { AppState } from './types';
+import { IOrdering } from '../../../models/IOrdering';
 
-export const appSelector = (state: RootState): AppState => state.app;
+export const catalogPageSelector = (state: RootState): number => state.catalog.page;
 
-export const catalogPageSelector = (state: RootState): number => state.app.page;
+export const catalogOrderingSelector = (state: RootState): IOrdering => state.catalog.ordering;
 
-export const catalogOrderingSelector = (state: RootState): string => state.app.ordering;
+export const catalogSearchSelector = (state: RootState): string => state.catalog.search;
 
-export const catalogSearchSelector = (state: RootState): string => state.app.search;
-
-export const catalogPlatformsSelector = (state: RootState): string[] => state.app.platforms;
+export const catalogPlatformsSelector = (state: RootState): string[] => state.catalog.platforms;

@@ -8,10 +8,11 @@ import {
 } from './types';
 import { IFullGame, IGame } from '../../../models/IGame';
 import { Dispatch } from 'react';
-import { AppAction } from '../catalog/types';
+import { CatalogAction } from '../catalog/types';
 import GameService from '../../../api/GameService/GameService';
 import { IDetails } from '../../../models/IDetails';
 import { IScreenshot } from '../../../models/IScreenshot';
+import { GetGamesProps } from '../../../api/GameService/GameService.types';
 
 export const setLoading = (loading: boolean): SetLoadingAction => ({
   type: GameActionsEnum.SET_LOADING,
@@ -36,8 +37,8 @@ export const setSelectedGame = (selectedGame: IFullGame): SetSelectedGameAction 
 // THUNK ACTIONS
 
 export const getGames =
-  (page: number, ordering: string, search?: string, platforms?: string) =>
-  async (dispatch: Dispatch<GameAction | AppAction>) => {
+  ({ page, ordering, search, platforms }: GetGamesProps) =>
+  async (dispatch: Dispatch<GameAction | CatalogAction>) => {
     try {
       dispatch(setLoading(true));
       const res = await GameService.getGames({ page, ordering, search, platforms });
@@ -50,8 +51,8 @@ export const getGames =
   };
 
 export const getLazyGames =
-  (page: number, ordering: string, search?: string, platforms?: string) =>
-  async (dispatch: Dispatch<GameAction | AppAction>) => {
+  ({ page, ordering, search, platforms }: GetGamesProps) =>
+  async (dispatch: Dispatch<GameAction | CatalogAction>) => {
     try {
       dispatch(setLoading(true));
       const res = await GameService.getGames({ page, ordering, search, platforms });
@@ -63,7 +64,7 @@ export const getLazyGames =
     }
   };
 
-export const getFullGameInfo = (game: IGame) => async (dispatch: Dispatch<GameAction | AppAction>) => {
+export const getFullGameInfo = (game: IGame) => async (dispatch: Dispatch<GameAction | CatalogAction>) => {
   try {
     dispatch(setLoading(true));
     const [details, screenshots] = await Promise.all([
