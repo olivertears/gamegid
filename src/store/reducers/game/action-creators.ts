@@ -2,8 +2,8 @@ import {
   AddGamesAction,
   GameAction,
   GameActionsEnum,
+  SetGameLoadingAction,
   SetGamesAction,
-  SetLoadingAction,
   SetSelectedGameAction,
 } from './types';
 import { IFullGame, IGame } from '../../../models/IGame';
@@ -13,9 +13,12 @@ import GameService from '../../../api/GameService/GameService';
 import { IDetails } from '../../../models/IDetails';
 import { IScreenshot } from '../../../models/IScreenshot';
 import { GetGamesProps } from '../../../api/GameService/GameService.types';
+import { setPage } from '../catalog/action-creators';
+import { setAppLoading } from '../app/action-creators';
+import { AppAction } from '../app/types';
 
-export const setLoading = (loading: boolean): SetLoadingAction => ({
-  type: GameActionsEnum.SET_LOADING,
+export const setGameLoading = (loading: boolean): SetGameLoadingAction => ({
+  type: GameActionsEnum.SET_GAME_LOADING,
   payload: loading,
 });
 
@@ -41,15 +44,15 @@ export const setSelectedGame = (selectedGame: IFullGame): SetSelectedGameAction 
 
 export const getGames =
   ({ ordering, search, platforms }: GetGamesProps) =>
-  async (dispatch: Dispatch<GameAction | CatalogAction>) => {
+  async (dispatch: Dispatch<GameAction | CatalogAction | AppAction>) => {
     try {
-      dispatch(setLoading(true));
+      dispatch(setAppLoading(true));
       const res = await GameService.getGames({ page: 1, ordering, search, platforms });
       dispatch(setGames(res.data.results as IGame[]));
     } catch (err: any) {
       console.log(err.message);
     } finally {
-      dispatch(setLoading(false));
+      dispatch(setAppLoading(false));
     }
   };
 
@@ -57,19 +60,20 @@ export const getLazyGames =
   ({ page, ordering, search, platforms }: GetGamesProps) =>
   async (dispatch: Dispatch<GameAction | CatalogAction>) => {
     try {
-      dispatch(setLoading(true));
+      dispatch(setGameLoading(true));
       const res = await GameService.getGames({ page, ordering, search, platforms });
       dispatch(addGames(res.data.results as IGame[]));
+      dispatch(setPage(page || 1 + 1));
     } catch (err: any) {
       console.log(err.message);
     } finally {
-      dispatch(setLoading(false));
+      dispatch(setGameLoading(false));
     }
   };
 
-export const getFullGameInfo = (game: IGame) => async (dispatch: Dispatch<GameAction | CatalogAction>) => {
+export const getFullGameInfo = (game: IGame) => async (dispatch: Dispatch<GameAction | CatalogAction | AppAction>) => {
   try {
-    dispatch(setLoading(true));
+    dispatch(setAppLoading(true));
     const [details, screenshots] = await Promise.all([
       GameService.getGameDetails(game.id),
       GameService.getGameScreenshots(game.id),
@@ -84,6 +88,6 @@ export const getFullGameInfo = (game: IGame) => async (dispatch: Dispatch<GameAc
   } catch (err: any) {
     console.log(err.message);
   } finally {
-    dispatch(setLoading(false));
+    dispatch(setAppLoading(false));
   }
 };

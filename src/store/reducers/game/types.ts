@@ -1,20 +1,20 @@
 import { IFullGame, IGame } from '../../../models/IGame';
 
 export interface GameState {
-  loading: boolean;
+  gameLoading: boolean;
   games: IGame[];
   selectedGame: IFullGame;
 }
 
 export enum GameActionsEnum {
-  SET_LOADING = 'SET_LOADING',
+  SET_GAME_LOADING = 'SET_GAME_LOADING',
   SET_GAMES = 'SET_GAMES',
   ADD_GAMES = 'ADD_GAMES',
   SET_SELECTED_GAME = 'SET_SELECTED_GAME',
 }
 
-export interface SetLoadingAction {
-  type: GameActionsEnum.SET_LOADING;
+export interface SetGameLoadingAction {
+  type: GameActionsEnum.SET_GAME_LOADING;
   payload: boolean;
 }
 
@@ -33,4 +33,4 @@ export interface SetSelectedGameAction {
   payload: IFullGame;
 }
 
-export type GameAction = SetLoadingAction | SetGamesAction | AddGamesAction | SetSelectedGameAction;
+export type GameAction = SetGameLoadingAction | SetGamesAction | AddGamesAction | SetSelectedGameAction;

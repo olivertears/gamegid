@@ -4,5 +4,5 @@ export const containerSX = {
   position: 'relative',
   minWidth: '300px',
   padding: '0 24px',
-  margin: '20px 0',
+  marginTop: '20px',
 };
