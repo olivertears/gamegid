@@ -10,7 +10,6 @@ import { catalogSearchSelector } from '../../store/reducers/catalog/selectors';
 const Search: FC = () => {
   const search = useSelector(catalogSearchSelector);
   const [query, setQuery] = useState<string>(search);
-  const [timer, setTimer] = useState<null | string | number | Timeout | undefined>(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,17 +22,13 @@ const Search: FC = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
-    if (timer) {
-      clearTimeout(timer);
-    }
-    setTimer(
-      setTimeout(() => {
-        dispatch(setSearch(e.target.value));
-      }, 500),
-    );
+    dispatch(setSearch(e.target.value));
   };
 
-  const clearInput = () => setSearch('');
+  const clearInput = () => {
+    setQuery('');
+    dispatch(setSearch(''));
+  };
 
   return (
     <Container sx={containerSX}>
