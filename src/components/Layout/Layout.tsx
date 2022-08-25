@@ -1,6 +1,6 @@
 import React, { FC, PropsWithChildren } from 'react';
 import { Container } from '@mui/material';
-import { Head } from 'next/document';
+// import { Head } from 'next/document';
 import { LayoutProps } from './Layout.types';
 import { containerSX } from './Layout.styles';
 
