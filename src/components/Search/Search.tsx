@@ -12,14 +12,6 @@ const Search: FC = () => {
   const [query, setQuery] = useState<string>(search);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const searchFromLS = localStorage.getItem('search');
-    if (searchFromLS) {
-      dispatch(setSearch(JSON.parse(searchFromLS)));
-      setQuery(JSON.parse(searchFromLS));
-    }
-  }, []);
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
     dispatch(setSearch(e.target.value));

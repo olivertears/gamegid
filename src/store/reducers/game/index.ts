@@ -1,11 +1,25 @@
 import { GameAction, GameActionsEnum, GameState } from './types';
-import { IFullGame, IGame } from '../../../models/IGame';
+import { IFullGame } from '../../../models/IGame';
 
-const initialState: GameState = {
-  gameLoading: false,
-  games: [] as IGame[],
-  selectedGame: {} as IFullGame,
+const loadGameState = (): GameState => {
+  if (typeof window !== 'undefined') {
+    const game = localStorage.getItem('selectedGame');
+
+    return {
+      gameLoading: false,
+      games: [],
+      selectedGame: game ? JSON.parse(game) : {},
+    };
+  }
+
+  return {
+    gameLoading: false,
+    games: [],
+    selectedGame: {} as IFullGame,
+  };
 };
+
+const initialState = loadGameState();
 
 export default function (state = initialState, action: GameAction): GameState {
   switch (action.type) {

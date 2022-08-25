@@ -12,14 +12,6 @@ const Selector: FC = () => {
   const [orderingName, setOrderingName] = useState<string>(ordering.name);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const orderingFromLS = localStorage.getItem('ordering');
-    if (orderingFromLS) {
-      setOrderingName(JSON.parse(orderingFromLS).name);
-      dispatch(setOrdering(JSON.parse(orderingFromLS)));
-    }
-  }, []);
-
   const handleChange = (event: SelectChangeEvent) => {
     setOrderingName(event.target.value);
     dispatch(setOrdering(findOrderingByName(event.target.value)));

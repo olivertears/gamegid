@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
   Checkbox,
   FormControl,
@@ -20,20 +20,12 @@ const MultipleSelector: FC = () => {
   const [platformNames, setPlatformNames] = useState<string[]>(platforms);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const platformsFromLS = localStorage.getItem('platforms');
-    if (platformsFromLS) {
-      dispatch(setPlatforms(JSON.parse(platformsFromLS)));
-      setPlatformNames(JSON.parse(platformsFromLS));
-    }
-  }, []);
-
   const handleChange = (event: SelectChangeEvent) => {
     const {
       target: { value },
     } = event;
-    setPlatformNames(typeof value === 'string' ? value.split(',') : value);
-    dispatch(setPlatforms(typeof value === 'string' ? value.split(',') : value));
+    setPlatformNames(value);
+    dispatch(setPlatforms(value));
   };
 
   return (

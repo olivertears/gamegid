@@ -4,7 +4,7 @@ import { gamesSelector } from '../../store/reducers/game/selectors';
 import GameCard from '../GameCard/GameCard';
 import { useInView } from 'react-hook-inview';
 import { useThunkDispatch } from '../../hooks/useThunkDispatch';
-import Masonry from 'react-masonry-css';
+import { Masonry } from '@mui/lab';
 import {
   catalogOrderingSelector,
   catalogPageSelector,
@@ -14,7 +14,8 @@ import {
 import { getLazyGames } from '../../store/reducers/game/action-creators';
 import { getPlatformsForRequest } from '../../utils/getPlatformsForRequest';
 import { Container } from '@mui/material';
-import { breakpoints } from '../../consts';
+import { columns } from './GamesCatalog.types';
+import { masonrySX } from './GamesCatalog.styles';
 
 const GamesCatalog: FC = () => {
   const page = useSelector(catalogPageSelector);
@@ -42,7 +43,7 @@ const GamesCatalog: FC = () => {
 
   return (
     <Container>
-      <Masonry breakpointCols={breakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
+      <Masonry columns={columns} spacing={3} sx={masonrySX}>
         {games.map((game, idx) => (
           <div ref={getRef(idx)} key={game.id}>
             <GameCard game={game} />
