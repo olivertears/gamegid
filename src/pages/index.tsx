@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Layout from '../components/Layout/Layout';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useThunkDispatch } from '../hooks/useThunkDispatch';
 import { getGames } from '../store/reducers/game/action-creators';
 import GamesCatalog from '../components/GamesCatalog/GamesCatalog';
@@ -17,6 +17,7 @@ import {
 import { getPlatformsForRequest } from '../utils/getPlatformsForRequest';
 import Header from '../components/Header/Header';
 import { appLoadingSelector } from '../store/reducers/app/selectors';
+import { timeout } from '../utils/timeout';
 
 const Home: NextPage = () => {
   const appLoading = useSelector(appLoadingSelector);
@@ -25,18 +26,28 @@ const Home: NextPage = () => {
   const platforms = useSelector(catalogPlatformsSelector);
   const search = useSelector(catalogSearchSelector);
   const dispatch = useThunkDispatch();
-  const firstRender = useRef<boolean>(true);
 
   useEffect(() => {
-    firstRender.current
-      ? (firstRender.current = false)
-      : dispatch(
+    let isCancelled = false;
+
+    const fetchGames = async () => {
+      await timeout(500);
+      if (!isCancelled) {
+        dispatch(
           getGames({
             ordering: ordering.value,
             search,
             platforms: getPlatformsForRequest(platforms),
           }),
         );
+      }
+    };
+
+    fetchGames();
+
+    return () => {
+      isCancelled = true;
+    };
   }, [ordering, platforms, search]);
 
   return (
