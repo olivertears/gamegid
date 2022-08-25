@@ -1,11 +1,4 @@
-import {
-  AddPlatformAction,
-  CatalogActionsEnum,
-  RemovePlatformAction,
-  SetOrderingAction,
-  SetPageAction,
-  SetSearchAction,
-} from './types';
+import { CatalogActionsEnum, SetOrderingAction, SetPageAction, SetPlatformsAction, SetSearchAction } from './types';
 import { IOrdering } from '../../../models/IOrdering';
 
 export const setPage = (page: number): SetPageAction => ({
@@ -13,22 +6,26 @@ export const setPage = (page: number): SetPageAction => ({
   payload: page,
 });
 
-export const setOrdering = (ordering: IOrdering): SetOrderingAction => ({
-  type: CatalogActionsEnum.SET_ORDERING,
-  payload: ordering,
-});
+export const setOrdering = (ordering: IOrdering): SetOrderingAction => {
+  localStorage.setItem('ordering', JSON.stringify(ordering));
+  return {
+    type: CatalogActionsEnum.SET_ORDERING,
+    payload: ordering,
+  };
+};
 
-export const setSearch = (search: string): SetSearchAction => ({
-  type: CatalogActionsEnum.SET_SEARCH,
-  payload: search,
-});
+export const setSearch = (search: string): SetSearchAction => {
+  localStorage.setItem('search', JSON.stringify(search));
+  return {
+    type: CatalogActionsEnum.SET_SEARCH,
+    payload: search,
+  };
+};
 
-export const addPlatform = (platform: string): AddPlatformAction => ({
-  type: CatalogActionsEnum.ADD_PLATFORM,
-  payload: platform,
-});
-
-export const removePlatform = (platform: string): RemovePlatformAction => ({
-  type: CatalogActionsEnum.REMOVE_PLATFORM,
-  payload: platform,
-});
+export const setPlatforms = (platforms: string[]): SetPlatformsAction => {
+  localStorage.setItem('platforms', JSON.stringify(platforms));
+  return {
+    type: CatalogActionsEnum.SET_PLATFORMS,
+    payload: platforms,
+  };
+};

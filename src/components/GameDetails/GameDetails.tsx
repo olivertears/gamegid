@@ -3,15 +3,14 @@ import { useSelector } from 'react-redux';
 import { selectedGameSelector } from '../../store/reducers/game/selectors';
 import { Box, Container, IconButton, Link, Rating, Typography } from '@mui/material';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import { boxSX, infoSX, Title, useArrowStyles } from './GameDetails.styles';
+import { arrowSX, boxSX, descriptionSX, infoSX, Title } from './GameDetails.styles';
 
 const GameDetails: FC = () => {
-  const cl = useArrowStyles();
   const game = useSelector(selectedGameSelector);
   const [descriptionOpen, setDescriptionOpen] = useState<boolean>(true);
 
   function createMarkup() {
-    return { __html: game.details.description };
+    return { __html: game.details?.description };
   }
 
   const handleOpenDescription = () => setDescriptionOpen(!descriptionOpen);
@@ -19,7 +18,7 @@ const GameDetails: FC = () => {
   return (
     <Container>
       <Typography variant={'h4'}>{game.name}</Typography>
-      <Rating value={game.rating} readOnly />
+      <Rating value={game.rating ? game.rating : 0} readOnly precision={0.5} />
 
       {game.released && (
         <>
@@ -28,7 +27,7 @@ const GameDetails: FC = () => {
         </>
       )}
 
-      {game.details.website && (
+      {game.details?.website && (
         <>
           <Title>Website: </Title>
           <Link href={game.details.website} target="_blank" sx={infoSX}>
@@ -39,14 +38,11 @@ const GameDetails: FC = () => {
 
       <Box sx={boxSX}>
         <Title>Description</Title>
-        <IconButton>
-          <ArrowDropUpIcon
-            className={`${cl.arrow} ${descriptionOpen && cl.rotatedArrow}`}
-            onClick={handleOpenDescription}
-          />
+        <IconButton onClick={handleOpenDescription}>
+          <ArrowDropUpIcon sx={arrowSX(descriptionOpen)} />
         </IconButton>
       </Box>
-      {descriptionOpen && <Box dangerouslySetInnerHTML={createMarkup()} />}
+      {descriptionOpen && <Box dangerouslySetInnerHTML={createMarkup()} sx={descriptionSX} />}
     </Container>
   );
 };

@@ -9,6 +9,7 @@ export const Wrap = styled('div')(({ theme }) => ({
     borderRadius: '10px',
     position: 'relative',
     zIndex: 100,
+    marginBottom: '30px',
   },
   [theme.breakpoints.up('sm')]: {
     height: '500px',

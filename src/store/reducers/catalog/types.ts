@@ -11,8 +11,7 @@ export enum CatalogActionsEnum {
   SET_PAGE = 'SET_PAGE',
   SET_ORDERING = 'SET_ORDERING',
   SET_SEARCH = 'SET_SEARCH',
-  ADD_PLATFORM = 'ADD_PLATFORM',
-  REMOVE_PLATFORM = 'REMOVE_PLATFORM',
+  SET_PLATFORMS = 'SET_PLATFORMS',
 }
 
 export interface SetPageAction {
@@ -30,19 +29,9 @@ export interface SetSearchAction {
   payload: string;
 }
 
-export interface AddPlatformAction {
-  type: CatalogActionsEnum.ADD_PLATFORM;
-  payload: string;
+export interface SetPlatformsAction {
+  type: CatalogActionsEnum.SET_PLATFORMS;
+  payload: string[];
 }
 
-export interface RemovePlatformAction {
-  type: CatalogActionsEnum.REMOVE_PLATFORM;
-  payload: string;
-}
-
-export type CatalogAction =
-  | SetPageAction
-  | SetOrderingAction
-  | SetSearchAction
-  | AddPlatformAction
-  | RemovePlatformAction;
+export type CatalogAction = SetPageAction | SetOrderingAction | SetSearchAction | SetPlatformsAction;
