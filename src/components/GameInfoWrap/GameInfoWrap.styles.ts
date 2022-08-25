@@ -9,5 +9,5 @@ export const Wrap = styled('div')(({ theme }) => ({
 export const wrapSX = {
   display: 'flex',
   flexDirection: 'column',
-  padding: '40px 0 0',
+  padding: '20px 0 0',
 };

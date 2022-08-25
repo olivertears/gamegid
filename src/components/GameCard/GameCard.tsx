@@ -12,7 +12,7 @@ const GameCard: FC<GameCardProps> = ({ game }) => {
   const router = useRouter();
 
   const redirect = () => {
-    dispatch(getFullGameInfo(game)).then(() => router.push('/game/' + slug));
+    router.push('/game/' + slug).then(() => dispatch(getFullGameInfo(game)));
   };
 
   return (

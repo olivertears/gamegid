@@ -1,9 +1,9 @@
-import {styled} from '@mui/material';
+import { styled } from '@mui/material';
 
 export const boxSX = {
   display: 'flex',
   flexDirection: 'column',
-  paddingBottom: '40px',
+  paddingBottom: '20px',
   textAlign: 'center',
 };
 
@@ -11,8 +11,7 @@ export const sliderWrapSX = {
   height: '300px',
   position: 'relative',
   borderRadius: '10px',
-  overflow: 'hidden'
-
+  overflow: 'hidden',
 };
 
 export const sliderViewSX = {
@@ -22,7 +21,7 @@ export const sliderViewSX = {
   display: 'flex',
 };
 
-export const Img = styled('img')(({theme}) => ({
+export const Img = styled('img')(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
     height: '100%',
     transform: 'translateX(-50%)',

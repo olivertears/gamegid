@@ -4,7 +4,6 @@ export const cardSX = {
   maxWidth: '100%',
   overflow: 'hidden',
   breakInside: 'avoid',
-  marginBottom: '20px',
   '&:hover': {
     cursor: 'pointer',
     boxShadow: '0 0 5px 2px deepskyblue',
