@@ -29,19 +29,22 @@ export const addGames = (games: IGame[]): AddGamesAction => ({
   payload: games,
 });
 
-export const setSelectedGame = (selectedGame: IFullGame): SetSelectedGameAction => ({
-  type: GameActionsEnum.SET_SELECTED_GAME,
-  payload: selectedGame,
-});
+export const setSelectedGame = (selectedGame: IFullGame): SetSelectedGameAction => {
+  localStorage.setItem('selectedGame', JSON.stringify(selectedGame));
+  return {
+    type: GameActionsEnum.SET_SELECTED_GAME,
+    payload: selectedGame,
+  };
+};
 
 // THUNK ACTIONS
 
 export const getGames =
-  ({ page, ordering, search, platforms }: GetGamesProps) =>
+  ({ ordering, search, platforms }: GetGamesProps) =>
   async (dispatch: Dispatch<GameAction | CatalogAction>) => {
     try {
       dispatch(setLoading(true));
-      const res = await GameService.getGames({ page, ordering, search, platforms });
+      const res = await GameService.getGames({ page: 1, ordering, search, platforms });
       dispatch(setGames(res.data.results as IGame[]));
     } catch (err: any) {
       console.log(err.message);

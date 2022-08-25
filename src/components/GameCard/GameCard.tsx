@@ -21,7 +21,7 @@ const GameCard: FC<GameCardProps> = ({ game }) => {
       <Container sx={containerSX}>
         <Typography variant="h5">{name}</Typography>
         <Typography variant="body1">{released}</Typography>
-        <Rating value={rating} readOnly />
+        <Rating value={rating} readOnly precision={0.5} />
       </Container>
     </Card>
   );

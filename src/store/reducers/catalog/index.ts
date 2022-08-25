@@ -19,11 +19,8 @@ export default function (state = initialState, action: CatalogAction): CatalogSt
     case CatalogActionsEnum.SET_SEARCH: {
       return { ...state, search: action.payload };
     }
-    case CatalogActionsEnum.ADD_PLATFORM: {
-      return { ...state, platforms: [...state.platforms, action.payload] };
-    }
-    case CatalogActionsEnum.REMOVE_PLATFORM: {
-      return { ...state, platforms: state.platforms.filter((platform) => platform !== action.payload) };
+    case CatalogActionsEnum.SET_PLATFORMS: {
+      return { ...state, platforms: action.payload };
     }
     default: {
       return state;

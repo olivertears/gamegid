@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import {
   Checkbox,
   FormControl,
@@ -11,15 +11,29 @@ import {
 } from '@mui/material';
 import { platformList } from '../../consts';
 import { formControlSX, MenuProps, selectSX } from './MultipleSelector.styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPlatforms } from '../../store/reducers/catalog/action-creators';
+import { catalogPlatformsSelector } from '../../store/reducers/catalog/selectors';
 
 const MultipleSelector: FC = () => {
-  const [platforms, setPlatforms] = useState<string[]>([] as string[]);
+  const platforms = useSelector(catalogPlatformsSelector);
+  const [platformNames, setPlatformNames] = useState<string[]>(platforms);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const platformsFromLS = localStorage.getItem('platforms');
+    if (platformsFromLS) {
+      dispatch(setPlatforms(JSON.parse(platformsFromLS)));
+      setPlatformNames(JSON.parse(platformsFromLS));
+    }
+  }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
     const {
       target: { value },
     } = event;
-    setPlatforms(typeof value === 'string' ? value.split(',') : value);
+    setPlatformNames(typeof value === 'string' ? value.split(',') : value);
+    dispatch(setPlatforms(typeof value === 'string' ? value.split(',') : value));
   };
 
   return (
@@ -27,7 +41,7 @@ const MultipleSelector: FC = () => {
       <InputLabel>Platforms</InputLabel>
       <Select
         multiple
-        value={platforms}
+        value={platformNames}
         onChange={handleChange}
         input={<OutlinedInput label="Platforms" />}
         renderValue={(selected) => selected.join(', ')}
@@ -36,7 +50,7 @@ const MultipleSelector: FC = () => {
       >
         {platformList.map((platform) => (
           <MenuItem key={platform} value={platform}>
-            <Checkbox checked={platforms.includes(platform)} />
+            <Checkbox checked={platformNames.includes(platform)} />
             <ListItemText primary={platform} />
           </MenuItem>
         ))}
