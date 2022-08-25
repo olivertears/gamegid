@@ -1,10 +1,14 @@
-import { styled } from '@mui/material';
-
 export const boxSX = {
   display: 'flex',
   flexDirection: 'column',
   paddingBottom: '20px',
   textAlign: 'center',
+};
+
+export const typographySX = {
+  fontSize: '24px',
+  fontWeight: '600',
+  marginBottom: '20px',
 };
 
 export const sliderWrapSX = {
@@ -19,17 +23,8 @@ export const sliderViewSX = {
   width: '100%',
   position: 'absolute',
   display: 'flex',
+  cursor: 'pointer',
 };
-
-export const Img = styled('img')(({ theme }) => ({
-  [theme.breakpoints.up('xs')]: {
-    height: '100%',
-    transform: 'translateX(-50%)',
-    position: 'absolute',
-    left: '50%',
-    borderRadius: '10px',
-  },
-}));
 
 export const imgSX = {
   height: '100%',
