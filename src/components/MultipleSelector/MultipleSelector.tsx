@@ -28,12 +28,9 @@ const MultipleSelector: FC = () => {
     }
   }, []);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    const {
-      target: { value },
-    } = event;
-    setPlatformNames(typeof value === 'string' ? value.split(',') : value);
-    dispatch(setPlatforms(typeof value === 'string' ? value.split(',') : value));
+  const handleChange = (event: SelectChangeEvent<string[]>) => {
+    setPlatformNames(event.target.value as string[]);
+    dispatch(setPlatforms(event.target.value as string[]));
   };
 
   return (

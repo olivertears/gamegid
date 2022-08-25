@@ -1,4 +1,6 @@
-export const MenuProps = {
+import { MenuProps as MenuPropsType } from '@mui/material';
+
+export const MenuProps: Partial<MenuPropsType> = {
   PaperProps: {
     style: {
       maxHeight: 224,
