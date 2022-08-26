@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { GetGamesProps, IAxiosResponseGames, IAxiosResponseScreenshots } from './GameService.types';
-import { IDetails } from '../../models/IDetails';
+import { IFullGame } from '../../models/IGame';
 
 const GameClient = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL });
 
@@ -25,16 +25,16 @@ export default class GameService {
     });
   }
 
-  static async getGameDetails(gameId: number): Promise<AxiosResponse<IDetails>> {
-    return GameClient.get(`games/${gameId}`, {
+  static async getGameDetails(gameSlug: string): Promise<AxiosResponse<IFullGame>> {
+    return GameClient.get(`games/${gameSlug}`, {
       params: {
         key: this.key,
       },
     });
   }
 
-  static async getGameScreenshots(gameId: number): Promise<AxiosResponse<IAxiosResponseScreenshots>> {
-    return GameClient.get(`games/${gameId}/screenshots`, {
+  static async getGameScreenshots(gameSlug: string): Promise<AxiosResponse<IAxiosResponseScreenshots>> {
+    return GameClient.get(`games/${gameSlug}/screenshots`, {
       params: {
         key: this.key,
       },

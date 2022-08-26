@@ -1,4 +1,5 @@
-import { styled } from '@mui/material';
+import { styled, SxProps } from '@mui/material';
+import { Theme } from '@mui/system';
 
 export const Title = styled('h2')(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
@@ -19,8 +20,8 @@ export const descriptionSX = {
   marginBottom: '20px',
 };
 
-export const arrowSX = (open: boolean) => ({
+export const arrowSX = (open: boolean): SxProps<Theme> => ({
   cursor: 'pointer',
   color: 'white',
-  transform: open && 'rotate(180deg)',
+  transform: open ? 'rotate(180deg)' : '',
 });

@@ -1,14 +1,15 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Select, MenuItem, InputLabel, FormControl, SelectChangeEvent } from '@mui/material';
 import { formControlSX, selectSX } from './Selector.styles';
 import { orderList } from '../../consts';
 import { useDispatch, useSelector } from 'react-redux';
-import { setOrdering } from '../../store/reducers/catalog/action-creators';
-import { catalogOrderingSelector } from '../../store/reducers/catalog/selectors';
 import { findOrderingByName } from '../../utils/findOrderingByName';
+import { catalogOrderingSelector } from '../../store/slices/catalog/selectors';
+import { catalogSlice } from '../../store/slices/catalog';
 
 const Selector: FC = () => {
   const ordering = useSelector(catalogOrderingSelector);
+  const { setOrdering } = catalogSlice.actions;
   const [orderingName, setOrderingName] = useState<string>(ordering.name);
   const dispatch = useDispatch();
 

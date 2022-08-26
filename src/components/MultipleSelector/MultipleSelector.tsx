@@ -12,20 +12,18 @@ import {
 import { platformList } from '../../consts';
 import { formControlSX, MenuProps, selectSX } from './MultipleSelector.styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPlatforms } from '../../store/reducers/catalog/action-creators';
-import { catalogPlatformsSelector } from '../../store/reducers/catalog/selectors';
+import { catalogSlice } from '../../store/slices/catalog';
+import { catalogPlatformsSelector } from '../../store/slices/catalog/selectors';
 
 const MultipleSelector: FC = () => {
   const platforms = useSelector(catalogPlatformsSelector);
+  const { setPlatforms } = catalogSlice.actions;
   const [platformNames, setPlatformNames] = useState<string[]>(platforms);
   const dispatch = useDispatch();
 
-  const handleChange = (event: SelectChangeEvent) => {
-    const {
-      target: { value },
-    } = event;
-    setPlatformNames(value);
-    dispatch(setPlatforms(value));
+  const handleChange = (event: SelectChangeEvent<string[]>) => {
+    setPlatformNames(event.target.value as string[]);
+    dispatch(setPlatforms(event.target.value as string[]));
   };
 
   return (

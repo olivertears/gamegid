@@ -1,8 +1,8 @@
 import React, { FC, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { selectedGameSelector } from '../../store/reducers/game/selectors';
 import { Box, CardMedia, Typography } from '@mui/material';
 import { boxSX, imgSX, sliderWrapSX, sliderViewSX, typographySX } from './ScreenshotSlider.styles';
+import { selectedGameSelector } from '../../store/slices/game/selectors';
 
 let left = 0;
 let width = 0;
