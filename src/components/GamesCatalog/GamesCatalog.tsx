@@ -1,20 +1,21 @@
 import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { gamesSelector } from '../../store/reducers/game/selectors';
 import GameCard from '../GameCard/GameCard';
 import { useInView } from 'react-hook-inview';
 import { useThunkDispatch } from '../../hooks/useThunkDispatch';
-import Masonry from 'react-masonry-css';
+import { Masonry } from '@mui/lab';
+import { getPlatformsForRequest } from '../../utils/getPlatformsForRequest/getPlatformsForRequest';
+import { Container } from '@mui/material';
+import { columns } from './GamesCatalog.types';
+import { masonrySX } from './GamesCatalog.styles';
 import {
   catalogOrderingSelector,
   catalogPageSelector,
   catalogPlatformsSelector,
   catalogSearchSelector,
-} from '../../store/reducers/catalog/selectors';
-import { getLazyGames } from '../../store/reducers/game/action-creators';
-import { getPlatformsForRequest } from '../../utils/getPlatformsForRequest';
-import { Container } from '@mui/material';
-import { breakpoints } from '../../consts';
+} from '../../store/slices/catalog/selectors';
+import { gamesSelector } from '../../store/slices/game/selectors';
+import { getLazyGames } from '../../store/slices/game/async-actions';
 
 const GamesCatalog: FC = () => {
   const page = useSelector(catalogPageSelector);
@@ -42,12 +43,14 @@ const GamesCatalog: FC = () => {
 
   return (
     <Container>
-      <Masonry breakpointCols={breakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
-        {games.map((game, idx) => (
-          <div ref={getRef(idx)} key={game.id}>
-            <GameCard game={game} />
-          </div>
-        ))}
+      <Masonry columns={columns} spacing={3} sx={masonrySX}>
+        {games.length
+          ? games.map((game, idx) => (
+              <div ref={getRef(idx)} key={game.id}>
+                <GameCard game={game} />
+              </div>
+            ))
+          : []}
       </Masonry>
     </Container>
   );

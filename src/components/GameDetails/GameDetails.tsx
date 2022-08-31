@@ -1,16 +1,16 @@
 import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectedGameSelector } from '../../store/reducers/game/selectors';
 import { Box, Container, IconButton, Link, Rating, Typography } from '@mui/material';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { arrowSX, boxSX, descriptionSX, infoSX, Title } from './GameDetails.styles';
+import { selectedGameSelector } from '../../store/slices/game/selectors';
 
 const GameDetails: FC = () => {
   const game = useSelector(selectedGameSelector);
   const [descriptionOpen, setDescriptionOpen] = useState<boolean>(true);
 
   function createMarkup() {
-    return { __html: game.details?.description };
+    return { __html: game.description };
   }
 
   const handleOpenDescription = () => setDescriptionOpen(!descriptionOpen);
@@ -27,21 +27,23 @@ const GameDetails: FC = () => {
         </>
       )}
 
-      {game.details?.website && (
+      {game.website && (
         <>
           <Title>Website: </Title>
-          <Link href={game.details.website} target="_blank" sx={infoSX}>
-            {game.details.website}
+          <Link href={game.website} target="_blank" sx={infoSX}>
+            {game.website}
           </Link>
         </>
       )}
 
-      <Box sx={boxSX}>
-        <Title>Description</Title>
-        <IconButton onClick={handleOpenDescription}>
-          <ArrowDropUpIcon sx={arrowSX(descriptionOpen)} />
-        </IconButton>
-      </Box>
+      {game.description && (
+        <Box sx={boxSX}>
+          <Title>Description</Title>
+          <IconButton onClick={handleOpenDescription}>
+            <ArrowDropUpIcon sx={arrowSX(descriptionOpen)} />
+          </IconButton>
+        </Box>
+      )}
       {descriptionOpen && <Box dangerouslySetInnerHTML={createMarkup()} sx={descriptionSX} />}
     </Container>
   );

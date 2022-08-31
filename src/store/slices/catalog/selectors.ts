@@ -1,4 +1,4 @@
-import { RootState } from '../index';
+import { RootState } from '../../store';
 import { IOrdering } from '../../../models/IOrdering';
 
 export const catalogPageSelector = (state: RootState): number => state.catalog.page;

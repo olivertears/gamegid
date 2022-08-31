@@ -1,11 +1,5 @@
 import { IOrdering } from './models/IOrdering';
 
-export const breakpoints = {
-  default: 3,
-  900: 2,
-  600: 1,
-};
-
 export const orderList: IOrdering[] = [
   { value: '-rating', name: 'Rating ↓' },
   { value: 'rating', name: 'Rating ↑' },

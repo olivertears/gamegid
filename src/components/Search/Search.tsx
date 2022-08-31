@@ -1,24 +1,17 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import { Container, IconButton, Input } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import { closeIconSX, inputSX, searchIconSX, containerSX } from './Search.styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearch } from '../../store/reducers/catalog/action-creators';
-import { catalogSearchSelector } from '../../store/reducers/catalog/selectors';
+import { catalogSearchSelector } from '../../store/slices/catalog/selectors';
+import { catalogSlice } from '../../store/slices/catalog';
 
 const Search: FC = () => {
   const search = useSelector(catalogSearchSelector);
+  const { setSearch } = catalogSlice.actions;
   const [query, setQuery] = useState<string>(search);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const searchFromLS = localStorage.getItem('search');
-    if (searchFromLS) {
-      dispatch(setSearch(JSON.parse(searchFromLS)));
-      setQuery(JSON.parse(searchFromLS));
-    }
-  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -33,7 +26,7 @@ const Search: FC = () => {
   return (
     <Container sx={containerSX}>
       <SearchIcon sx={searchIconSX} />
-      <Input value={query} onChange={handleChange} sx={inputSX} />
+      <Input value={query} onChange={handleChange} sx={inputSX} id={'search'} />
       {query && (
         <IconButton onClick={clearInput}>
           <CloseIcon sx={closeIconSX} />
