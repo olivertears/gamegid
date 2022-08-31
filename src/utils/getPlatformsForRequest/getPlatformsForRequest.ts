@@ -1,4 +1,4 @@
-import { platformList } from '../consts';
+import { platformList } from '../../consts';
 
 export const getPlatformsForRequest = (platforms: string[]): string =>
   platforms

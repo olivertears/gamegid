@@ -4,7 +4,7 @@ import GameCard from '../GameCard/GameCard';
 import { useInView } from 'react-hook-inview';
 import { useThunkDispatch } from '../../hooks/useThunkDispatch';
 import { Masonry } from '@mui/lab';
-import { getPlatformsForRequest } from '../../utils/getPlatformsForRequest';
+import { getPlatformsForRequest } from '../../utils/getPlatformsForRequest/getPlatformsForRequest';
 import { Container } from '@mui/material';
 import { columns } from './GamesCatalog.types';
 import { masonrySX } from './GamesCatalog.styles';

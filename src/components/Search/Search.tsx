@@ -26,7 +26,7 @@ const Search: FC = () => {
   return (
     <Container sx={containerSX}>
       <SearchIcon sx={searchIconSX} />
-      <Input value={query} onChange={handleChange} sx={inputSX} />
+      <Input value={query} onChange={handleChange} sx={inputSX} id={'search'} />
       {query && (
         <IconButton onClick={clearInput}>
           <CloseIcon sx={closeIconSX} />

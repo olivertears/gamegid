@@ -3,7 +3,7 @@ import { Select, MenuItem, InputLabel, FormControl, SelectChangeEvent } from '@m
 import { formControlSX, selectSX } from './Selector.styles';
 import { orderList } from '../../consts';
 import { useDispatch, useSelector } from 'react-redux';
-import { findOrderingByName } from '../../utils/findOrderingByName';
+import { findOrderingByName } from '../../utils/findOrderingByName/findOrderingByName';
 import { catalogOrderingSelector } from '../../store/slices/catalog/selectors';
 import { catalogSlice } from '../../store/slices/catalog';
 
@@ -21,7 +21,7 @@ const Selector: FC = () => {
   return (
     <FormControl sx={formControlSX}>
       <InputLabel>Ordering</InputLabel>
-      <Select value={orderingName} label="Ordering" onChange={handleChange} sx={selectSX}>
+      <Select value={orderingName} label="Ordering" onChange={handleChange} sx={selectSX} id={'orderingSelect'}>
         {orderList.map((ordering) => (
           <MenuItem value={ordering.name} key={ordering.name}>
             {ordering.name}
