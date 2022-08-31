@@ -37,6 +37,7 @@ const MultipleSelector: FC = () => {
         renderValue={(selected) => selected.join(', ')}
         MenuProps={MenuProps}
         sx={selectSX}
+        id={'platformFilter'}
       >
         {platformList.map((platform) => (
           <MenuItem key={platform} value={platform}>

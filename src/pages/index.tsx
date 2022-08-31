@@ -7,7 +7,7 @@ import { ThemeProvider, debounce } from '@mui/material';
 import { theme } from '../theme';
 import { useSelector } from 'react-redux';
 import Loader from '../components/Loader/Loader';
-import { getPlatformsForRequest } from '../utils/getPlatformsForRequest';
+import { getPlatformsForRequest } from '../utils/getPlatformsForRequest/getPlatformsForRequest';
 import Header from '../components/Header/Header';
 import { parseCookies } from 'nookies';
 import {
@@ -40,7 +40,7 @@ const Home: NextPage = () => {
       }),
     );
   };
-  const debouncedFetchGames = useCallback(debounce(fetchGames, 500), []);
+  const debouncedFetchGames = useCallback(debounce(fetchGames, 500), [ordering, search, platforms]);
 
   useEffect(() => {
     debouncedFetchGames();
