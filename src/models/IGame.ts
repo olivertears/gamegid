@@ -1,5 +1,4 @@
 import { IScreenshot } from './IScreenshot';
-import { IDetails } from './IDetails';
 
 export interface IGame {
   id: number;
@@ -11,6 +10,7 @@ export interface IGame {
 }
 
 export interface IFullGame extends IGame {
-  details: IDetails;
+  description: string;
+  website: string;
   screenshots: IScreenshot[];
 }

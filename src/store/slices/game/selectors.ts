@@ -1,4 +1,4 @@
-import { RootState } from '../index';
+import { RootState } from '../../store';
 import { IFullGame, IGame } from '../../../models/IGame';
 
 export const gamesSelector = (state: RootState): IGame[] => state.game.games;
